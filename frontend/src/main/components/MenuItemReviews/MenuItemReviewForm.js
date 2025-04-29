@@ -38,7 +38,6 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="itemId">ItemId</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-itemId"}
           id="itemId"
           type="long"
           isInvalid={Boolean(errors.itemId)}
@@ -54,7 +53,6 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="reviewerEmail">ReviewerEmail</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-reviewerEmail"}
           id="reviewerEmail"
           type="text"
           isInvalid={Boolean(errors.reviewerEmail)}
@@ -70,7 +68,6 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="stars">Stars</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-stars"}
           id="stars"
           type="int"
           isInvalid={Boolean(errors.stars)}
@@ -103,9 +100,7 @@ function MenuItemReviewForm({
         </Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit" data-testid={testIdPrefix + "-submit"}>
-        {buttonLabel}
-      </Button>
+      <Button type="submit">{buttonLabel}</Button>
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}
