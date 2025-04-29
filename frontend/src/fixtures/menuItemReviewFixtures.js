@@ -1,4 +1,4 @@
-const menuItemReviewsFixtures = {
+const menuItemReviewFixtures = {
   oneMIR: {
     id: 14,
     itemId: 100,
@@ -32,4 +32,4 @@ const menuItemReviewsFixtures = {
   ],
 };
 
-export { menuItemReviewsFixtures };
+export { menuItemReviewFixtures };
