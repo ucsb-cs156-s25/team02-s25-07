@@ -44,14 +44,6 @@ function MenuItemReviewForm({
           isInvalid={Boolean(errors.itemId)}
           {...register("itemId", {
             required: "ItemId is required.",
-            min: {
-              value: 1,
-              message: "ItemId must be greater than 0.",
-            },
-            max: {
-              value: 1000000,
-              message: "ItemId must be less than 1,000,000.",
-            },
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -84,14 +76,6 @@ function MenuItemReviewForm({
           isInvalid={Boolean(errors.stars)}
           {...register("stars", {
             required: "Stars is required.",
-            min: {
-              value: 1,
-              message: "Stars must be greater than 0.",
-            },
-            max: {
-              value: 5,
-              message: "Stars must be less than or equal to 5.",
-            },
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -108,6 +92,10 @@ function MenuItemReviewForm({
           isInvalid={Boolean(errors.comments)}
           {...register("comments", {
             required: "Comments is required.",
+            maxLength: {
+              value: 255,
+              message: "Comments must be less than 255 characters.",
+            },
           })}
         />
         <Form.Control.Feedback type="invalid">
