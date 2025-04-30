@@ -130,16 +130,10 @@ function RecommendationRequestFormForm({
         <Form.Label htmlFor="done">
           Done? (if checked the recommendation is done; else it is not done.)
         </Form.Label>
-        <Form.Check
-          type="checkbox"
-          id="done"
-          {...register("done")}
-        />
+        <Form.Check type="checkbox" id="done" {...register("done")} />
       </Form.Group>
 
-      <Button type="submit">
-        {buttonLabel}
-      </Button>
+      <Button type="submit">{buttonLabel}</Button>
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}
