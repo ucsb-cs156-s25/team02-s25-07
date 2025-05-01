@@ -15,6 +15,10 @@ import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviews
 import MenuItemReviewsCreatePage from "main/pages/MenuItemReviews/MenuItemReviewsCreatePage";
 import MenuItemReviewsEditPage from "main/pages/MenuItemReviews/MenuItemReviewsEditPage";
 
+import UCSBDiningCommonsMenuItemsIndexPage from "main/pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsIndexPage";
+import UCSBDiningCommonsMenuItemsCreatePage from "main/pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsCreatePage";
+import UCSBDiningCommonsMenuItemsEditPage from "main/pages/UCSBDiningCommonsMenuItems/UCSBDiningCommonsMenuItemsEditPage";
+
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
