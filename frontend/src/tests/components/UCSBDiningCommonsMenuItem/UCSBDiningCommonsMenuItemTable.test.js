@@ -29,7 +29,10 @@ describe("UCSBDiningCommonsMenuItemTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBDiningCommonsMenuItemTable menuItems={[]} currentUser={currentUser} />
+          <UCSBDiningCommonsMenuItemTable
+            menuItems={[]}
+            currentUser={currentUser}
+          />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -57,7 +60,9 @@ describe("UCSBDiningCommonsMenuItemTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemTable
-            menuItems={ucsbDiningCommonsMenuItemFixtures.threeDiningCommonsMenuItem}
+            menuItems={
+              ucsbDiningCommonsMenuItemFixtures.threeDiningCommonsMenuItem
+            }
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -111,7 +116,9 @@ describe("UCSBDiningCommonsMenuItemTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemTable
-            menuItems={ucsbDiningCommonsMenuItemFixtures.threeDiningCommonsMenuItem}
+            menuItems={
+              ucsbDiningCommonsMenuItemFixtures.threeDiningCommonsMenuItem
+            }
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -130,18 +137,18 @@ describe("UCSBDiningCommonsMenuItemTable tests", () => {
     });
 
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
-        "2",
+      "2",
     );
     expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-diningCommonsCode`),
-      ).toHaveTextContent("Portola");
-  
+      screen.getByTestId(`${testId}-cell-row-0-col-diningCommonsCode`),
+    ).toHaveTextContent("Portola");
+
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-        "3",
-      );
+      "3",
+    );
     expect(
-        screen.getByTestId(`${testId}-cell-row-1-col-name`),
-      ).toHaveTextContent("Cheese Burger");
+      screen.getByTestId(`${testId}-cell-row-1-col-name`),
+    ).toHaveTextContent("Cheese Burger");
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
@@ -156,7 +163,9 @@ describe("UCSBDiningCommonsMenuItemTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemTable
-            menuItems={ucsbDiningCommonsMenuItemFixtures.threeDiningCommonsMenuItem}
+            menuItems={
+              ucsbDiningCommonsMenuItemFixtures.threeDiningCommonsMenuItem
+            }
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -167,7 +176,6 @@ describe("UCSBDiningCommonsMenuItemTable tests", () => {
     expect(
       await screen.findByTestId(`${testId}-cell-row-0-col-id`),
     ).toHaveTextContent("2");
-    
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -197,7 +205,9 @@ describe("UCSBDiningCommonsMenuItemTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemTable
-            menuItems={ucsbDiningCommonsMenuItemFixtures.threeDiningCommonsMenuItem}
+            menuItems={
+              ucsbDiningCommonsMenuItemFixtures.threeDiningCommonsMenuItem
+            }
             currentUser={currentUser}
           />
         </MemoryRouter>
