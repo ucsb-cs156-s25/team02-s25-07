@@ -63,6 +63,25 @@ function App() {
             />
           </>
         )}
+        {hasRole(currentUser, "ROLE_USER") && (
+          <>
+            <Route exact path="/menuitemreviews" element={<MenuItemReviewsIndexPage />} />
+          </>
+        )}
+        {hasRole(currentUser, "ROLE_ADMIN") && (
+          <>
+            <Route
+              exact
+              path="/menuitemreviews/edit/:id"
+              element={<MenuItemReviewsEditPage />}
+            />
+            <Route
+              exact
+              path="/menuitemreviews/create"
+              element={<MenuItemReviewsCreatePage />}
+            />
+          </>
+        )}
 
         {hasRole(currentUser, "ROLE_USER") && (
           <>
