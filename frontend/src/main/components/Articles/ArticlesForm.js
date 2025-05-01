@@ -19,11 +19,10 @@ function ArticlesForm({
 
   const testIdPrefix = "ArticlesForm";
 
+  // Remove or comment out the unused regex
   // For ISO date-time validation
-  // Stryker disable Regex
-  const isodate_regex =
-    /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\d)/i;
-  // Stryker restore Regex
+  // const isodate_regex =
+  //   /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\d)/i;
 
   // Helper function to format date for the datetime-local input
   const formatDateForInput = (dateString) => {
