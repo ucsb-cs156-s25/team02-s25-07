@@ -133,8 +133,8 @@ function App() {
           <>
             <Route
               exact
-              path="/placeholder"
-              element={<PlaceholderIndexPage />}
+              path="/ucsborganization"
+              element={<UCSBOrganizationIndexPage />}
             />
           </>
         )}
@@ -142,13 +142,13 @@ function App() {
           <>
             <Route
               exact
-              path="/placeholder/edit/:id"
-              element={<PlaceholderEditPage />}
+              path="/ucsborganization/edit/:id"
+              element={<UCSBOrganizationEditPage />}
             />
             <Route
               exact
-              path="/placeholder/create"
-              element={<PlaceholderCreatePage />}
+              path="/ucsborganization/create"
+              element={<UCSBOrganizationCreatePage />}
             />
           </>
         )}
