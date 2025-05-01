@@ -102,6 +102,9 @@ describe("RecommendationRequestTable tests", () => {
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
     ).toHaveTextContent("yuchenliu735@ucsb.edu");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-done`),
+    ).toHaveTextContent("true");
 
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "2",
