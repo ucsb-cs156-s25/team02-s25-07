@@ -86,7 +86,9 @@ describe("ArticlesForm tests", () => {
     const dateAddedField = screen.getByTestId("ArticlesForm-dateAdded");
 
     fireEvent.change(titleField, { target: { value: "sample_article_title" } });
-    fireEvent.change(urlField, { target: { value: "https://example.com/article" } });
+    fireEvent.change(urlField, {
+      target: { value: "https://example.com/article" },
+    });
     fireEvent.change(explanationField, {
       target: { value: "This is a sample explanation" },
     });

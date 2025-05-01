@@ -138,8 +138,8 @@ function ArticlesForm({
 
       <Row>
         <Col>
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             data-testid="ArticlesForm-submit"
             className="me-2"
           >
