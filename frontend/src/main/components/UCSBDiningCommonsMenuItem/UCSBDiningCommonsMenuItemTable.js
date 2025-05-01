@@ -60,10 +60,8 @@ export default function UCSBDiningCommonsMenuItemTable({
       ButtonColumn("Delete", "danger", deleteCallback, testIdPrefix),
     );
   }
-//   console.log(columns);
-//   console.log(menuitems);
+  //   console.log(columns);
+  //   console.log(menuitems);
 
-  return (
-    <OurTable data={menuItems} columns={columns} testid={testIdPrefix} />
-  );
+  return <OurTable data={menuItems} columns={columns} testid={testIdPrefix} />;
 }
