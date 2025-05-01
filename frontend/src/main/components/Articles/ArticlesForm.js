@@ -2,6 +2,43 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+// Helper function to format date for the datetime-local input
+export const formatDateForInput = (dateString) => {
+  // This explicit check is needed to handle null, undefined, and empty string
+  if (dateString === null || dateString === undefined || dateString === '') {
+    return '';
+  }
+  
+  // If it's already in the right format, return it
+  if (typeof dateString === 'string' && dateString.includes('T')) {
+    // Ensure it has seconds if needed
+    if (!dateString.includes(':')) {
+      return dateString + ':00';
+    }
+    return dateString;
+  }
+  
+  // Try to parse the date and format it
+  try {
+    const date = new Date(dateString);
+    // Explicit check for invalid date
+    if (isNaN(date.getTime())) {
+      return '';
+    }
+    
+    // Format as YYYY-MM-DDThh:mm in local timezone instead of UTC
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  } catch (e) {
+    return '';
+  }
+};
+
 function ArticlesForm({
   initialContents,
   submitAction,
@@ -24,33 +61,8 @@ function ArticlesForm({
   // const isodate_regex =
   //   /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\d)/i;
 
-  // Helper function to format date for the datetime-local input
-  const formatDateForInput = (dateString) => {
-    if (!dateString) return '';
-    
-    // If it's already in the right format, return it
-    if (dateString.includes('T')) {
-      // Ensure it has seconds if needed
-      if (!dateString.includes(':')) {
-        return dateString + ':00';
-      }
-      return dateString;
-    }
-    
-    // Try to parse the date and format it
-    try {
-      const date = new Date(dateString);
-      if (isNaN(date.getTime())) return '';
-      
-      // Format as YYYY-MM-DDThh:mm
-      return date.toISOString().slice(0, 16);
-    } catch (e) {
-      return '';
-    }
-  };
-
   // Initialize dateAdded with proper format if it exists
-  if (initialContents && initialContents.dateAdded) {
+  if (initialContents && initialContents.dateAdded !== undefined && initialContents.dateAdded !== null) {
     initialContents.dateAdded = formatDateForInput(initialContents.dateAdded);
   }
 

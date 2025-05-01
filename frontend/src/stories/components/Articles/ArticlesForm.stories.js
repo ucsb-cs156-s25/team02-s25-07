@@ -26,4 +26,20 @@ Show.args = {
     initialContents: articlesFixtures.oneArticle,
     submitText: "Update",
     submitAction: () => { console.log("Submit was clicked"); }
+};
+
+export const EmptyDateAdded = Template.bind({});
+
+EmptyDateAdded.args = {
+    initialContents: {...articlesFixtures.oneArticle, dateAdded: null},
+    submitText: "Update",
+    submitAction: () => { console.log("Submit was clicked"); }
+};
+
+export const InvalidDateFormat = Template.bind({});
+
+InvalidDateFormat.args = {
+    initialContents: {...articlesFixtures.oneArticle, dateAdded: "not-a-date"},
+    submitText: "Update",
+    submitAction: () => { console.log("Submit was clicked"); }
 }; 
