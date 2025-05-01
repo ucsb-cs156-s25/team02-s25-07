@@ -109,7 +109,7 @@ function HelpRequestForm({
               id="tableOrBreakoutRoom"
               type="text"
               isInvalid={Boolean(errors.tableOrBreakoutRoom)}
-              {...register("localDateTime", {
+              {...register("tableOrBreakoutRoom", {
                 required: "Table or breakout room number required.",
               })}
             />
