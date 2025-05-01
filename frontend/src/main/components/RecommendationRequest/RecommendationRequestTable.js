@@ -61,7 +61,8 @@ export default function RecommendationRequestTable({
     },
     {
       Header: "Done?",
-      accessor: "done",
+      id: "done",
+      accessor: (my_recReq) => my_recReq.done.toString(),
     },
   ];
 
