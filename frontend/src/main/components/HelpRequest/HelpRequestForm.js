@@ -110,7 +110,7 @@ function HelpRequestForm({
               type="text"
               isInvalid={Boolean(errors.tableOrBreakoutRoom)}
               {...register("tableOrBreakoutRoom", {
-                required: "Table or breakout room number required.",
+                required: "Table or breakout room number is required.",
               })}
             />
             <Form.Control.Feedback type="invalid">
