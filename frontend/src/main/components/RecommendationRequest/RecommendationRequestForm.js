@@ -2,7 +2,7 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-function RecommendationRequestFormForm({
+function RecommendationRequestForm({
   initialContents,
   submitAction,
   buttonLabel = "Create",
@@ -133,7 +133,9 @@ function RecommendationRequestFormForm({
         <Form.Check type="checkbox" id="done" {...register("done")} />
       </Form.Group>
 
-      <Button type="submit">{buttonLabel}</Button>
+      <Button type="submit" data-testid={testIdPrefix + "-submit"}>
+        {buttonLabel}
+      </Button>
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}
@@ -145,4 +147,4 @@ function RecommendationRequestFormForm({
   );
 }
 
-export default RecommendationRequestFormForm;
+export default RecommendationRequestForm;
