@@ -11,9 +11,9 @@ import RestaurantIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
 import RestaurantCreatePage from "main/pages/Restaurants/RestaurantCreatePage";
 import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
 
-import ArticleIndexPage from "main/pages/Articles/ArticleIndexPage";
-import ArticleCreatePage from "main/pages/Articles/ArticleCreatePage";
-import ArticleEditPage from "main/pages/Articles/ArticleEditPage";
+import ArticlesIndexPage from "main/pages/Articles/ArticlesIndexPage";
+import ArticlesCreatePage from "main/pages/Articles/ArticlesCreatePage";
+import ArticlesEditPage from "main/pages/Articles/ArticlesEditPage";
 
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
@@ -82,7 +82,7 @@ function App() {
             <Route
               exact
               path="/articles"
-              element={<ArticleIndexPage />}
+              element={<ArticlesIndexPage />}
             />
           </>
         )}
@@ -91,12 +91,12 @@ function App() {
             <Route
               exact
               path="/articles/edit/:id"
-              element={<ArticleEditPage />}
+              element={<ArticlesEditPage />}
             />
             <Route
               exact
               path="/articles/create"
-              element={<ArticleCreatePage />}
+              element={<ArticlesCreatePage />}
             />
           </>
         )}
