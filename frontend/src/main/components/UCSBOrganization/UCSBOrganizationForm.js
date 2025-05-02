@@ -25,7 +25,6 @@ function UCSBOrganizationForm({
         <Form.Group className="mb-3">
           <Form.Label htmlFor="orgCode">OrgCode</Form.Label>
           <Form.Control
-            data-testid={testIdPrefix + "UCSBOrganizationForm-orgCode"}
             id="orgCode"
             type="text"
             isInvalid={Boolean(errors.orgCode)}
@@ -43,7 +42,6 @@ function UCSBOrganizationForm({
         <Form.Group className="mb-3">
           <Form.Label htmlFor="orgCode">OrgCode</Form.Label>
           <Form.Control
-            data-testid={testIdPrefix + "-orgCode"}
             id="orgCode"
             type="text"
             {...register("orgCode")}
@@ -58,7 +56,6 @@ function UCSBOrganizationForm({
           OrgTranslationShort
         </Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-orgTranslationShort"}
           id="orgTranslationShort"
           type="text"
           isInvalid={Boolean(errors.orgTranslationShort)}
@@ -74,7 +71,6 @@ function UCSBOrganizationForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="orgTranslation">OrgTranslation</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-orgTranslation"}
           id="orgTranslation"
           type="text"
           isInvalid={Boolean(errors.orgTranslation)}
@@ -90,7 +86,6 @@ function UCSBOrganizationForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="inactive">Inactive</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-inactive"}
           id="inactive"
           type="text"
           isInvalid={Boolean(errors.inactive)}
