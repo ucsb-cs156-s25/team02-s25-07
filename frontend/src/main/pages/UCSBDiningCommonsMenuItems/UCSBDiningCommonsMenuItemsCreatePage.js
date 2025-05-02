@@ -16,9 +16,7 @@ export default function UCSBDiningCommonsMenuItemPage({ storybook = false }) {
   });
 
   const onSuccess = (item) => {
-    toast(
-      `New item Created - id: ${item.id} name: ${item.name}`,
-    );
+    toast(`New item Created - id: ${item.id} name: ${item.name}`);
   };
 
   const mutation = useBackendMutation(
