@@ -42,6 +42,7 @@ function UCSBOrganizationForm({
         <Form.Group className="mb-3">
           <Form.Label htmlFor="orgCode">OrgCode</Form.Label>
           <Form.Control
+            data-testid={testIdPrefix + "-orgCode"}
             id="orgCode"
             type="text"
             {...register("orgCode")}
@@ -98,7 +99,7 @@ function UCSBOrganizationForm({
         </Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit" data-testid={testIdPrefix + "-submit"}>
+      <Button type="submit">
         {buttonLabel}
       </Button>
       <Button
