@@ -5,7 +5,9 @@ import { Navigate } from "react-router-dom";
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function UCSBDiningCommonsMenuItemEditPage({ storybook = false }) {
+export default function UCSBDiningCommonsMenuItemEditPage({
+  storybook = false,
+}) {
   let { id } = useParams();
 
   const {
@@ -64,7 +66,7 @@ export default function UCSBDiningCommonsMenuItemEditPage({ storybook = false })
       <div className="pt-2">
         <h1>Edit Item</h1>
         {menuItems && (
-          <UCSBDiningCommonsMenuItemForm 
+          <UCSBDiningCommonsMenuItemForm
             submitAction={onSubmit}
             buttonLabel={"Update"}
             initialContents={menuItems}

@@ -63,7 +63,9 @@ describe("UCSBDiningCommonsMenuItemsEditPage tests", () => {
         </QueryClientProvider>,
       );
       await screen.findByText("Edit Item");
-      expect(screen.queryByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode")).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode"),
+      ).not.toBeInTheDocument();
       restoreConsole();
     });
   });
