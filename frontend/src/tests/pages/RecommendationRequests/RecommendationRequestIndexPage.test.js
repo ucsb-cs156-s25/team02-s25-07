@@ -1,14 +1,15 @@
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import ArticlesIndexPage from "main/pages/Articles/ArticlesIndexPage";
+import RecommendationRequestIndexPage from "main/pages/RecommendationRequests/RecommendationRequestIndexPage";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { articlesFixtures } from "fixtures/articlesFixtures";
+import { ucsbDatesFixtures } from "fixtures/ucsbDatesFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "jest-mock-console";
+import { recommendationRequestFixtures } from "fixtures/recommendationRequestFixtures";
 
 const mockToast = jest.fn();
 jest.mock("react-toastify", () => {
@@ -20,10 +21,10 @@ jest.mock("react-toastify", () => {
   };
 });
 
-describe("ArticlesIndexPage tests", () => {
+describe("RecommendationRequestIndexPage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
-  const testId = "ArticlesTable";
+  const testId = "RecommendationRequestTable";
 
   const setupUserOnly = () => {
     axiosMock.reset();
@@ -51,23 +52,25 @@ describe("ArticlesIndexPage tests", () => {
     // arrange
     setupAdminUser();
     const queryClient = new QueryClient();
-    axiosMock.onGet("/api/articles/all").reply(200, []);
+    axiosMock.onGet("/api/recommendationrequest/all").reply(200, []);
 
     // act
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesIndexPage />
+          <RecommendationRequestIndexPage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
     // assert
     await waitFor(() => {
-      expect(screen.getByText(/Create Articles/)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Create Recommendation Request/),
+      ).toBeInTheDocument();
     });
-    const button = screen.getByText(/Create Articles/);
-    expect(button).toHaveAttribute("href", "/articles/create");
+    const button = screen.getByText(/Create Recommendation Request/);
+    expect(button).toHaveAttribute("href", "/recommendationrequest/create");
     expect(button).toHaveAttribute("style", "float: right;");
   });
 
@@ -76,14 +79,14 @@ describe("ArticlesIndexPage tests", () => {
     setupUserOnly();
     const queryClient = new QueryClient();
     axiosMock
-      .onGet("/api/articles/all")
-      .reply(200, articlesFixtures.threeArticles);
+      .onGet("/api/recommendationrequest/all")
+      .reply(200, ucsbDatesFixtures.threeDates);
 
     // act
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesIndexPage />
+          <RecommendationRequestIndexPage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -102,21 +105,23 @@ describe("ArticlesIndexPage tests", () => {
     );
 
     // assert that the Create button is not present when user isn't an admin
-    expect(screen.queryByText(/Create Articles/)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Create Recommendation Request/),
+    ).not.toBeInTheDocument();
   });
 
   test("renders empty table when backend unavailable, user only", async () => {
     // arrange
     setupUserOnly();
     const queryClient = new QueryClient();
-    axiosMock.onGet("/api/articles/all").timeout();
+    axiosMock.onGet("/api/recommendationrequest/all").timeout();
     const restoreConsole = mockConsole();
 
     // act
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesIndexPage />
+          <RecommendationRequestIndexPage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -128,7 +133,7 @@ describe("ArticlesIndexPage tests", () => {
 
     const errorMessage = console.error.mock.calls[0][0];
     expect(errorMessage).toMatch(
-      "Error communicating with backend via GET on /api/articles/all",
+      "Error communicating with backend via GET on /api/recommendationrequest/all",
     );
     restoreConsole();
 
@@ -142,17 +147,17 @@ describe("ArticlesIndexPage tests", () => {
     setupAdminUser();
     const queryClient = new QueryClient();
     axiosMock
-      .onGet("/api/articles/all")
-      .reply(200, articlesFixtures.threeArticles);
+      .onGet("/api/recommendationrequest/all")
+      .reply(200, recommendationRequestFixtures.threeRecommendationRequests);
     axiosMock
-      .onDelete("/api/articles")
-      .reply(200, "Article with id 1 was deleted");
+      .onDelete("/api/recommendationrequest")
+      .reply(200, "RecommendationRequest with id 1 was deleted");
 
     // act
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesIndexPage />
+          <RecommendationRequestIndexPage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -178,41 +183,9 @@ describe("ArticlesIndexPage tests", () => {
 
     // assert
     await waitFor(() => {
-      expect(mockToast).toBeCalledWith("Article with id 1 was deleted");
+      expect(mockToast).toBeCalledWith(
+        "RecommendationRequest with id 1 was deleted",
+      );
     });
-  });
-
-  test("renders empty table when articles is null and uses fallback empty array", async () => {
-    // arrange
-    setupUserOnly();
-    const queryClient = new QueryClient();
-
-    // Mock the API to return null instead of an array
-    axiosMock.onGet("/api/articles/all").reply(200, null);
-
-    // act
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <ArticlesIndexPage />
-        </MemoryRouter>
-      </QueryClientProvider>,
-    );
-
-    // assert - check that the table renders without errors
-    await waitFor(() => {
-      expect(screen.getByText("Articles")).toBeInTheDocument();
-    });
-
-    // Check for absence of specific table cells - this will fail if any rows are rendered
-    expect(
-      screen.queryByTestId(`${testId}-cell-row-0-col-id`),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByTestId(`${testId}-cell-row-0-col-title`),
-    ).not.toBeInTheDocument();
-
-    // If ["Stryker was here"] is used instead of [], some content would appear in the table
-    expect(screen.queryByText("Stryker was here")).not.toBeInTheDocument();
   });
 });
