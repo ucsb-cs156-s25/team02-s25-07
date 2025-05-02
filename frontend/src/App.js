@@ -23,6 +23,10 @@ import UCSBOrganizationIndexPage from "main/pages/UCSBOrganization/UCSBOrganizat
 import UCSBOrganizationCreatePage from "main/pages/UCSBOrganization/UCSBOrganizationCreatePage";
 import UCSBOrganizationEditPage from "main/pages/UCSBOrganization/UCSBOrganizationEditPage";
 
+import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
+import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
+import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
+
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -124,6 +128,52 @@ function App() {
               exact
               path="/ucsborganization/create"
               element={<UCSBOrganizationCreatePage />}
+            />
+          </>
+        )}
+        {hasRole(currentUser, "ROLE_USER") && (
+          <>
+            <Route
+              exact
+              path="/recommendationrequest"
+              element={<RecommendationRequestIndexPage />}
+            />
+          </>
+        )}
+        {hasRole(currentUser, "ROLE_ADMIN") && (
+          <>
+            <Route
+              exact
+              path="/recommendationrequest/edit/:id"
+              element={<RecommendationRequestEditPage />}
+            />
+            <Route
+              exact
+              path="/recommendationrequest/create"
+              element={<RecommendationRequestCreatePage />}
+            />
+          </>
+        )}
+        {hasRole(currentUser, "ROLE_USER") && (
+          <>
+            <Route
+              exact
+              path="/placeholder"
+              element={<PlaceholderIndexPage />}
+            />
+          </>
+        )}
+        {hasRole(currentUser, "ROLE_ADMIN") && (
+          <>
+            <Route
+              exact
+              path="/placeholder/edit/:id"
+              element={<PlaceholderEditPage />}
+            />
+            <Route
+              exact
+              path="/placeholder/create"
+              element={<PlaceholderCreatePage />}
             />
           </>
         )}

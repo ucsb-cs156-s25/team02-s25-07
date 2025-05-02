@@ -10,7 +10,7 @@ export default function RecommendationRequestIndexPage() {
   const currentUser = useCurrentUser();
 
   const {
-    data: recommendationrequest,
+    data: RecommendationRequest,
     error: _error,
     status: _status,
   } = useBackend(
@@ -40,7 +40,10 @@ export default function RecommendationRequestIndexPage() {
       <div className="pt-2">
         {createButton()}
         <h1>Recommendation Request</h1>
-        <RecommendationRequestTable recommendationrequest={recommendationrequest} currentUser={currentUser} />
+        <RecommendationRequestTable
+          recommendationRequests={RecommendationRequest}
+          currentUser={currentUser}
+        />
       </div>
     </BasicLayout>
   );
