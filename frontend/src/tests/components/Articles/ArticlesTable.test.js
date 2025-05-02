@@ -65,14 +65,22 @@ describe("ArticlesTable tests", () => {
     });
 
     // Check specific content
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "2",
+    );
 
     // Verify buttons are not present for regular user
-    const editButton = screen.queryByTestId(`${testId}-cell-row-0-col-Edit-button`);
+    const editButton = screen.queryByTestId(
+      `${testId}-cell-row-0-col-Edit-button`,
+    );
     expect(editButton).not.toBeInTheDocument();
 
-    const deleteButton = screen.queryByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    const deleteButton = screen.queryByTestId(
+      `${testId}-cell-row-0-col-Delete-button`,
+    );
     expect(deleteButton).not.toBeInTheDocument();
   });
 
@@ -121,15 +129,23 @@ describe("ArticlesTable tests", () => {
     });
 
     // Check specific content
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "2",
+    );
 
     // Verify admin buttons are present
-    const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
+    const editButton = screen.getByTestId(
+      `${testId}-cell-row-0-col-Edit-button`,
+    );
     expect(editButton).toBeInTheDocument();
     expect(editButton).toHaveClass("btn-primary");
 
-    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    const deleteButton = screen.getByTestId(
+      `${testId}-cell-row-0-col-Delete-button`,
+    );
     expect(deleteButton).toBeInTheDocument();
     expect(deleteButton).toHaveClass("btn-danger");
   });
@@ -150,18 +166,22 @@ describe("ArticlesTable tests", () => {
 
     // Wait for the table to render
     await waitFor(() => {
-      expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+      expect(
+        screen.getByTestId(`${testId}-cell-row-0-col-id`),
+      ).toHaveTextContent("1");
     });
 
     // Find and click the edit button
-    const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
+    const editButton = screen.getByTestId(
+      `${testId}-cell-row-0-col-Edit-button`,
+    );
     expect(editButton).toBeInTheDocument();
 
     fireEvent.click(editButton);
 
     // Verify navigation occurred correctly
-    await waitFor(() => 
-      expect(mockedNavigate).toHaveBeenCalledWith("/articles/edit/1")
+    await waitFor(() =>
+      expect(mockedNavigate).toHaveBeenCalledWith("/articles/edit/1"),
     );
   });
 
@@ -187,11 +207,15 @@ describe("ArticlesTable tests", () => {
 
     // Wait for the table to render
     await waitFor(() => {
-      expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+      expect(
+        screen.getByTestId(`${testId}-cell-row-0-col-id`),
+      ).toHaveTextContent("1");
     });
 
     // Find and click the delete button
-    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    const deleteButton = screen.getByTestId(
+      `${testId}-cell-row-0-col-Delete-button`,
+    );
     expect(deleteButton).toBeInTheDocument();
     fireEvent.click(deleteButton);
 
