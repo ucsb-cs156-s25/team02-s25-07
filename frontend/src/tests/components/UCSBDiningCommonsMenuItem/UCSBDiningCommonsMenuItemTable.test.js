@@ -187,7 +187,7 @@ describe("UCSBDiningCommonsMenuItemTable tests", () => {
 
     // assert - check that the navigate function was called with the expected path
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith("/Menuitems/edit/2"),
+      expect(mockedNavigate).toHaveBeenCalledWith("/menuItem/edit/2"),
     );
   });
 
