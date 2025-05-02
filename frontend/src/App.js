@@ -11,6 +11,10 @@ import RestaurantIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
 import RestaurantCreatePage from "main/pages/Restaurants/RestaurantCreatePage";
 import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
 
+import ArticleIndexPage from "main/pages/Articles/ArticleIndexPage";
+import ArticleCreatePage from "main/pages/Articles/ArticleCreatePage";
+import ArticleEditPage from "main/pages/Articles/ArticleEditPage";
+
 import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviewsIndexPage";
 import MenuItemReviewsCreatePage from "main/pages/MenuItemReviews/MenuItemReviewsCreatePage";
 import MenuItemReviewsEditPage from "main/pages/MenuItemReviews/MenuItemReviewsEditPage";
@@ -168,7 +172,7 @@ function App() {
             <Route
               exact
               path="/articles"
-              element={<ArticlesIndexPage />}
+              element={<ArticleIndexPage />}
             />
           </>
         )}
@@ -177,15 +181,16 @@ function App() {
             <Route
               exact
               path="/articles/edit/:id"
-              element={<ArticlesEditPage />}
+              element={<ArticleEditPage />}
             />
             <Route
               exact
               path="/articles/create"
-              element={<ArticlesCreatePage />}
+              element={<ArticleCreatePage />}
             />
           </>
         )}
+
         {hasRole(currentUser, "ROLE_USER") && (
           <>
             <Route
