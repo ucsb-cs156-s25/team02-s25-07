@@ -187,7 +187,7 @@ describe("MenuItemReviewTable tests", () => {
 
     // assert - check that the navigate function was called with the expected path
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith("/menuitemreview/edit/23"),
+      expect(mockedNavigate).toHaveBeenCalledWith("/menuitemreviews/edit/23"),
     );
   });
 
