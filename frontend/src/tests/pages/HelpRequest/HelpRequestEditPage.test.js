@@ -1,43 +1,229 @@
-import { render, screen } from "@testing-library/react";
-import HelpRequestEditPage from "main/pages/HelpRequest/HelpRequestEditPage";
+import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
+import HelpRequestEditPage from "main/pages/HelpRequest/HelpRequestEditPage";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
-describe("PlaceholderEditPage tests", () => {
-  const axiosMock = new AxiosMockAdapter(axios);
+import mockConsole from "jest-mock-console";
 
-  const setupUserOnly = () => {
-    axiosMock.reset();
-    axiosMock.resetHistory();
-    axiosMock
-      .onGet("/api/currentUser")
-      .reply(200, apiCurrentUserFixtures.userOnly);
-    axiosMock
-      .onGet("/api/systemInfo")
-      .reply(200, systemInfoFixtures.showingNeither);
+const mockToast = jest.fn();
+jest.mock("react-toastify", () => {
+  const originalModule = jest.requireActual("react-toastify");
+  return {
+    __esModule: true,
+    ...originalModule,
+    toast: (x) => mockToast(x),
   };
+});
 
-  const queryClient = new QueryClient();
-  test("Renders expected content", async () => {
-    // arrange
+const mockNavigate = jest.fn();
+jest.mock("react-router-dom", () => {
+  const originalModule = jest.requireActual("react-router-dom");
+  return {
+    __esModule: true,
+    ...originalModule,
+    useParams: () => ({
+      id: 17,
+    }),
+    Navigate: (x) => {
+      mockNavigate(x);
+      return null;
+    },
+  };
+});
 
-    setupUserOnly();
+describe("HelpRequestEditPage tests", () => {
+  describe("when the backend doesn't return data", () => {
+    const axiosMock = new AxiosMockAdapter(axios);
 
-    // act
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <HelpRequestEditPage />
-        </MemoryRouter>
-      </QueryClientProvider>,
-    );
+    beforeEach(() => {
+      axiosMock.reset();
+      axiosMock.resetHistory();
+      axiosMock
+        .onGet("/api/currentUser")
+        .reply(200, apiCurrentUserFixtures.userOnly);
+      axiosMock
+        .onGet("/api/systemInfo")
+        .reply(200, systemInfoFixtures.showingNeither);
+      axiosMock.onGet("/api/helprequest", { params: { id: 17 } }).timeout();
+    });
 
-    // assert
-    await screen.findByText("Edit page not yet implemented");
+    const queryClient = new QueryClient();
+    test("renders header but table is not present", async () => {
+      const restoreConsole = mockConsole();
+
+      render(
+        <QueryClientProvider client={queryClient}>
+          <MemoryRouter>
+            <HelpRequestEditPage />
+          </MemoryRouter>
+        </QueryClientProvider>,
+      );
+      await screen.findByText("Edit HelpRequest");
+      expect(
+        screen.queryByTestId("HelpRequestTable-requesterEmail"),
+      ).not.toBeInTheDocument();
+      restoreConsole();
+    });
+  });
+
+  describe("tests where backend is working normally", () => {
+    const axiosMock = new AxiosMockAdapter(axios);
+
+    beforeEach(() => {
+      axiosMock.reset();
+      axiosMock.resetHistory();
+      axiosMock
+        .onGet("/api/currentUser")
+        .reply(200, apiCurrentUserFixtures.userOnly);
+      axiosMock
+        .onGet("/api/systemInfo")
+        .reply(200, systemInfoFixtures.showingNeither);
+      axiosMock.onGet("/api/helprequest", { params: { id: 17 } }).reply(200, {
+        id: 17,
+        requesterEmail: "test@ucsb.edu",
+        teamID: "07",
+        tableOrBreakoutRoom: "07",
+        explanation: "editing pages not working",
+        solved: true,
+        localDateTime: "2022-02-02T00:00",
+      });
+      axiosMock.onPut("/api/helprequest").reply(200, {
+        id: 17,
+        requesterEmail: "help@ucsb.edu",
+        teamID: "01",
+        tableOrBreakoutRoom: "01",
+        explanation: "editing pages is working",
+        solved: true,
+        localDateTime: "2022-12-25T08:00",
+      });
+    });
+
+    const queryClient = new QueryClient();
+    test("renders without crashing", async () => {
+      render(
+        <QueryClientProvider client={queryClient}>
+          <MemoryRouter>
+            <HelpRequestEditPage />
+          </MemoryRouter>
+        </QueryClientProvider>,
+      );
+
+      await screen.findByTestId("HelpRequestForm-requesterEmail");
+    });
+
+    test("Is populated with the data provided", async () => {
+      render(
+        <QueryClientProvider client={queryClient}>
+          <MemoryRouter>
+            <HelpRequestEditPage />
+          </MemoryRouter>
+        </QueryClientProvider>,
+      );
+
+      await screen.findByTestId("HelpRequestForm-requesterEmail");
+
+      const idField = screen.getByTestId("HelpRequestForm-id");
+      const requesterEmailField = screen.getByTestId(
+        "HelpRequestForm-requesterEmail",
+      );
+      const teamIDField = screen.getByTestId("HelpRequestForm-teamID");
+      const tableOrBreakoutRoomField = screen.getByTestId(
+        "HelpRequestForm-tableOrBreakoutRoom",
+      );
+      const explanationField = screen.getByTestId(
+        "HelpRequestForm-explanation",
+      );
+      const solvedField = screen.getByTestId("HelpRequestForm-solved");
+      const localDateTimeField = screen.getByTestId(
+        "HelpRequestForm-localDateTime",
+      );
+      const submitButton = screen.getByTestId("HelpRequestForm-submit");
+
+      expect(idField).toHaveValue("17");
+      expect(requesterEmailField).toHaveValue("test@ucsb.edu");
+      expect(teamIDField).toHaveValue("07");
+      expect(tableOrBreakoutRoomField).toHaveValue("07");
+      expect(explanationField).toHaveValue("editing pages not working");
+      expect(solvedField).toBeChecked(true);
+      expect(localDateTimeField).toHaveValue("2022-02-02T00:00");
+      expect(submitButton).toBeInTheDocument();
+    });
+
+    test("Changes when you click Update", async () => {
+      render(
+        <QueryClientProvider client={queryClient}>
+          <MemoryRouter>
+            <HelpRequestEditPage />
+          </MemoryRouter>
+        </QueryClientProvider>,
+      );
+
+      await screen.findByTestId("HelpRequestForm-requesterEmail");
+
+      const idField = screen.getByTestId("HelpRequestForm-id");
+      const requesterEmailField = screen.getByTestId(
+        "HelpRequestForm-requesterEmail",
+      );
+      const teamIDField = screen.getByTestId("HelpRequestForm-teamID");
+      const tableOrBreakoutRoomField = screen.getByTestId(
+        "HelpRequestForm-tableOrBreakoutRoom",
+      );
+      const explanationField = screen.getByTestId(
+        "HelpRequestForm-explanation",
+      );
+      const solvedField = screen.getByTestId("HelpRequestForm-solved");
+      const localDateTimeField = screen.getByTestId(
+        "HelpRequestForm-localDateTime",
+      );
+      const submitButton = screen.getByTestId("HelpRequestForm-submit");
+
+      expect(idField).toHaveValue("17");
+      expect(requesterEmailField).toHaveValue("test@ucsb.edu");
+      expect(teamIDField).toHaveValue("07");
+      expect(tableOrBreakoutRoomField).toHaveValue("07");
+      expect(explanationField).toHaveValue("editing pages not working");
+      expect(solvedField).toBeChecked(true);
+      expect(localDateTimeField).toHaveValue("2022-02-02T00:00");
+      expect(submitButton).toBeInTheDocument();
+
+      fireEvent.change(requesterEmailField, {
+        target: { value: "help@ucsb.edu" },
+      });
+      fireEvent.change(teamIDField, { target: { value: "01" } });
+      fireEvent.change(tableOrBreakoutRoomField, { target: { value: "01" } });
+      fireEvent.change(explanationField, {
+        target: { value: "editing pages is working" },
+      });
+      fireEvent.change(solvedField, { target: { value: true } });
+      fireEvent.change(localDateTimeField, {
+        target: { value: "2022-12-25T08:00" },
+      });
+
+      fireEvent.click(submitButton);
+
+      await waitFor(() => expect(mockToast).toBeCalled());
+      expect(mockToast).toBeCalledWith(
+        "HelpRequest Updated - id: 17 email: help@ucsb.edu",
+      );
+      expect(mockNavigate).toBeCalledWith({ to: "/helprequest" });
+
+      expect(axiosMock.history.put.length).toBe(1); // times called
+      expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
+      expect(axiosMock.history.put[0].data).toBe(
+        JSON.stringify({
+          requesterEmail: "help@ucsb.edu",
+          teamID: "01",
+          tableOrBreakoutRoom: "01",
+          explanation: "editing pages is working",
+          solved: true,
+          localDateTime: "2022-12-25T08:00",
+        }),
+      ); // posted object
+    });
   });
 });
