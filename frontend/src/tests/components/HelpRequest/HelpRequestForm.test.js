@@ -17,7 +17,7 @@ describe("HelpRequestForm tests", () => {
     "Team ID",
     "Table or Breakout Room Number",
     "Explanation",
-    "Solved (true/false)",
+    "Solved (check for solved)",
   ];
   test("renders correctly", async () => {
     render(
@@ -79,7 +79,7 @@ describe("HelpRequestForm tests", () => {
       screen.getByText(/Table or breakout room number is required./),
     ).toBeInTheDocument();
     expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
-    expect(screen.getByText(/Solved status is required./)).toBeInTheDocument();
+    // expect(screen.getByText(/Solved status is required./)).toBeInTheDocument();
   });
 
   test("No Error messsages on good input", async () => {
@@ -108,7 +108,7 @@ describe("HelpRequestForm tests", () => {
     fireEvent.change(teamIDField, { target: { value: "7" } });
     fireEvent.change(tableOrBreakoutRoomField, { target: { value: "8" } });
     fireEvent.change(explanationField, { target: { value: "aaaaaaa" } });
-    fireEvent.change(solvedField, { target: { value: "true" } });
+    fireEvent.change(solvedField, { target: { value: true } });
     fireEvent.change(localDateTimeField, {
       target: { value: "2022-01-02T12:00" },
     });

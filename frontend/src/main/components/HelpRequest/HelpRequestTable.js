@@ -54,7 +54,7 @@ export default function HelpRequestTable({ requests, currentUser }) {
     {
       Header: "Solved",
       id: "solved",
-      accessor: (key) => key.solved.toString(),
+      accessor: (key) => String(key.solved),
     },
     {
       Header: "Date",
