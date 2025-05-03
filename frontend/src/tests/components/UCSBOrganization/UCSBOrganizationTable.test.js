@@ -27,7 +27,7 @@ describe("UCSBOrganizationTable tests", () => {
     "orgCode",
     "orgTranslationShort",
     "orgTranslation",
-    "inactive",
+    "Inactive",
   ];
   const testId = "UCSBOrganizationTable";
 
@@ -175,9 +175,7 @@ describe("UCSBOrganizationTable tests", () => {
 
     // assert - check that the navigate function was called with the expected path
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith(
-        "/ucsborganization/edit/SKY",
-      ),
+      expect(mockedNavigate).toHaveBeenCalledWith("/ucsborganization/edit/SKY"),
     );
   });
 

@@ -12,7 +12,7 @@ export default function UCSBOrganizationCreatePage({ storybook = false }) {
       orgCode: organization.orgCode,
       orgTranslationShort: organization.orgTranslationShort,
       orgTranslation: organization.orgTranslation,
-      inactive: organization.inactive
+      inactive: organization.inactive,
     },
   });
 
@@ -48,4 +48,3 @@ export default function UCSBOrganizationCreatePage({ storybook = false }) {
     </BasicLayout>
   );
 }
-
