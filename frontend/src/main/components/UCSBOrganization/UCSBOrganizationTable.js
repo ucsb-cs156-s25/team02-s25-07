@@ -50,7 +50,7 @@ export default function UCSBOrganizationTable({
     },
     {
       Header: "Inactive",
-      accessor: (key) => key.inactive.toString(),
+      accessor: (inactive_key) => inactive_key.inactive.toString(),
     },
   ];
 
