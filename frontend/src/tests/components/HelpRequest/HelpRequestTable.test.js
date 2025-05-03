@@ -130,6 +130,10 @@ describe("UserTable tests", () => {
       "2",
     );
 
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-solved`),
+    ).toHaveTextContent("true");
+
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
     );

@@ -70,7 +70,7 @@ describe("HelpRequestCreatePage tests", () => {
       teamID: "07",
       tableOrBreakoutRoom: "07",
       explanation: "creating pages not working",
-      solved: "true",
+      solved: false,
       localDateTime: "2022-02-02T00:00",
     };
 
@@ -129,7 +129,7 @@ describe("HelpRequestCreatePage tests", () => {
       teamID: "07",
       tableOrBreakoutRoom: "07",
       explanation: "creating pages not working",
-      solved: "true",
+      solved: false,
     });
 
     expect(mockToast).toBeCalledWith(
