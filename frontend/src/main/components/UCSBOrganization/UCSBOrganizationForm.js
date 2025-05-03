@@ -86,14 +86,17 @@ function UCSBOrganizationForm({
 
       <Form.Group className="mb-3">
         <Form.Label htmlFor="inactive">Inactive</Form.Label>
-        <Form.Control
+        <Form.Select
           id="inactive"
-          type="text"
           isInvalid={Boolean(errors.inactive)}
           {...register("inactive", {
-            required: "Inactive is required.",
+            validate: (value) => value !== "invalid" || "Inactive is required.",
           })}
-        />
+        >
+          <option value="invalid">--</option>
+          <option value="true">true</option>
+          <option value="false">false</option>
+        </Form.Select>
         <Form.Control.Feedback type="invalid">
           {errors.inactive?.message}
         </Form.Control.Feedback>

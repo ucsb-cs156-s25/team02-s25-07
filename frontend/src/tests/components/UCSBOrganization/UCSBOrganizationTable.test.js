@@ -27,7 +27,7 @@ describe("UCSBOrganizationTable tests", () => {
     "orgCode",
     "orgTranslationShort",
     "orgTranslation",
-    "inactive",
+    "Inactive",
   ];
   const testId = "UCSBOrganizationTable";
 
@@ -91,6 +91,9 @@ describe("UCSBOrganizationTable tests", () => {
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-orgCode`),
     ).toHaveTextContent("OSLI");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-Inactive`),
+    ).toHaveTextContent("false");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -175,9 +178,7 @@ describe("UCSBOrganizationTable tests", () => {
 
     // assert - check that the navigate function was called with the expected path
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith(
-        "/ucsborganizations/edit/SKY",
-      ),
+      expect(mockedNavigate).toHaveBeenCalledWith("/ucsborganization/edit/SKY"),
     );
   });
 
