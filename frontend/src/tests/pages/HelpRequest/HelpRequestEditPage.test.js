@@ -89,7 +89,7 @@ describe("HelpRequestEditPage tests", () => {
         teamID: "07",
         tableOrBreakoutRoom: "07",
         explanation: "editing pages not working",
-        solved: false,
+        solved: true,
         localDateTime: "2022-02-02T00:00",
       });
       axiosMock.onPut("/api/helprequest").reply(200, {
@@ -149,7 +149,7 @@ describe("HelpRequestEditPage tests", () => {
       expect(teamIDField).toHaveValue("07");
       expect(tableOrBreakoutRoomField).toHaveValue("07");
       expect(explanationField).toHaveValue("editing pages not working");
-      expect(solvedField).toHaveValue(false);
+      expect(solvedField).toBeChecked(true);
       expect(localDateTimeField).toHaveValue("2022-02-02T00:00");
       expect(submitButton).toBeInTheDocument();
     });
@@ -187,7 +187,7 @@ describe("HelpRequestEditPage tests", () => {
       expect(teamIDField).toHaveValue("07");
       expect(tableOrBreakoutRoomField).toHaveValue("07");
       expect(explanationField).toHaveValue("editing pages not working");
-      expect(solvedField).toHaveValue(false);
+      expect(solvedField).toBeChecked(true);
       expect(localDateTimeField).toHaveValue("2022-02-02T00:00");
       expect(submitButton).toBeInTheDocument();
 
@@ -216,7 +216,6 @@ describe("HelpRequestEditPage tests", () => {
       expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
       expect(axiosMock.history.put[0].data).toBe(
         JSON.stringify({
-          id: 17,
           requesterEmail: "help@ucsb.edu",
           teamID: "01",
           tableOrBreakoutRoom: "01",
