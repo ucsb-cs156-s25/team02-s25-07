@@ -50,29 +50,8 @@ public class RecommendationRequestWebIT extends WebTestCase {
 
         page.getByText("Recommendation Requests").click();
 
-        // page.getByText("Create Recommendation Request").click();
-        // assertThat(page.getByText("Create New Recommendation Request")).isVisible();
-        // page.getByLabel("Requester Email").fill("yuchenliu735@ucsb.edu");
-        // page.getByLabel("Professor Email").fill("phtcon@ucsb.edu");
-        // page.getByLabel("Explanation").fill("Testing: Recommendation Request from
-        // Steven to Prof.Conrad");
-        // page.getByLabel("Date Requested (iso format)").fill("2022-01-03T00:00:00");
-        // page.getByLabel("Date Needed (iso format)").fill("2022-03-11T00:00:00");
-        // page.getByLabel("Done? (if checked the recommendation is done; else it is not
-        // done.)").fill("false");
-
-        //page.getByText("Create").click();
-
         assertThat(page.getByTestId("RecommendationRequestTable-cell-row-0-col-requesterEmail"))
                 .hasText(requesteremail1);
-
-        //page.getByTestId("RecommendationRequestTable-cell-row-0-col-Edit-button").click();
-        // assertThat(page.getByText("Edit Restaurant")).isVisible();
-        // page.getByTestId("RestaurantForm-description").fill("THE BEST");
-        // page.getByTestId("RestaurantForm-submit").click();
-
-        // assertThat(page.getByTestId("RestaurantTable-cell-row-0-col-description")).hasText("THE
-        // BEST");
 
         page.getByTestId("RecommendationRequestTable-cell-row-0-col-Delete").click();
 
